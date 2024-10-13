@@ -1,0 +1,36 @@
+{
+  "name": "scripts-cli",
+  "version": "1.0.0",
+  "description": "CLI to run package json scripts and any other scripts in an npm project.",
+  "main": "./dist/index.js",
+  "types": "./dist/types.d.ts",
+  "bin": {
+    "project": "./dist/index.js"
+  },
+  "repository": "git+https://github.com/benfc1993/scripts-cli.git",
+  "homepage": "https://github.com/benfc1993/scripts-cli#readme",
+  "author": "Ben Feldberg Collins",
+  "license": "MIT",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "esbuild --platform=node --watch --outdir=dist --bundle ./src/index.ts",
+    "build": "tsc -p ./tsconfig.build.json && esbuild --platform=node --outdir=dist --bundle ./src/index.ts"
+  },
+  "keywords": [
+    "package",
+    "cli",
+    "scripts",
+    "tool",
+    "workflow"
+  ],
+  "devDependencies": {
+    "@types/node": "^22.7.5",
+    "esbuild": "^0.24.0",
+    "typescript": "^5.6.3"
+  },
+  "dependencies": {
+    "@inquirer/prompts": "^7.0.0",
+    "commander": "^12.1.0",
+    "fuzzy-search": "^3.2.1"
+  }
+}
