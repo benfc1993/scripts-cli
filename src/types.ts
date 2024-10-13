@@ -4,6 +4,13 @@ export type Options = Record<
       args?: boolean;
       exec?: string;
       options?: never;
+      exclude?: never;
     }
-  | { options: Options; args: never; exec: never }
+  | { options: Options; args: never; exec: never; exclude?: never }
+  | {
+      exclude: boolean;
+      args?: boolean;
+      exec?: string;
+      options?: never;
+    }
 >;
