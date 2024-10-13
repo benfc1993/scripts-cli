@@ -15,7 +15,7 @@ npm install --save-dev scripts-cli
 ### yarn
 
 ```bash
-yarn add -D scripts-cli
+yarn add --dev scripts-cli
 ```
 
 ## Config
