@@ -3,9 +3,7 @@ import { Options } from "./types";
 import FuzzySearch from "fuzzy-search";
 
 export async function presentOptions(options: Options) {
-  const choices = Object.keys(options).filter(
-    (option) => !options[option]?.exclude,
-  );
+  const choices = Object.keys(options);
   const selection = await search<keyof typeof options>({
     message: "What do you want to do",
     source: async (input) => {
@@ -24,11 +22,9 @@ export async function presentOptions(options: Options) {
 
   const args = selectedOption.args
     ? await input({
-        message: "Arguments:",
+        message: selectedOption?.argsLabel + ":" ?? "Arguments:",
       }).catch()
     : "";
-
-  console.log(args);
 
   const cmd = selectedOption?.exec ?? "npm run " + selection;
 
