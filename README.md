@@ -28,16 +28,33 @@ npm run <selected script>
 
 In order to change the behaviour of `package.json` scripts and add any other scripts for the project you can create a `.scriptscli.config.mjs` file.
 
-For each entry you can provide the following:
+```typescript
+type Options =
+  | {
+      args?: boolean;
+      argumentsLabel?: string;
+      exec?: string;
+    }
+  | {
+      options: Options;
+    };
 
-| key     | description                                                                                                                                                        |
-| ------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| args    | default ( `false` ). When `true` the cli will allow arguments to be provided and passed to final command.                                                          |
-| exclude | default ( `false` ). When `true` this script will not show in the selectable list                                                                                  |
-| options | default ( `{}` ). This allows for nested options. The object supplied has the same options as the top level.                                                       |
-| exec    | default ( `undefined` ). For a script in `package.json` if a value is provided here it will override the script. This string will be provided to the shell to run. |
+type Config = {
+  exclude: string[];
+  options: Options;
+};
+```
 
-### Package.json
+For each option entry you can provide the following:
+
+| key       | description                                                                                                                                                        |
+| --------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| args      | default ( `false` ). When `true` the cli will allow arguments to be provided and passed to final command.                                                          |
+| argsLabel | default ( `Arguments` ). When provided this will be used in the CLI as a label for the arguments input.                                                            |
+| options   | default ( `{}` ). This allows for nested options. The object supplied has the same options as the top level.                                                       |
+| exec      | default ( `undefined` ). For a script in `package.json` if a value is provided here it will override the script. This string will be provided to the shell to run. |
+
+### Example Package.json
 
 ```json
 {
@@ -51,35 +68,31 @@ For each entry you can provide the following:
 }
 ```
 
-### .scriptscli.config.json
+### Example .scriptscli.config.json
 
 ```javascript
-export const config = {
-  test: {
-    args: true, // This will ask the user to provide arguments then run 'npm run test' followed by any provided arguments.
-  },
-  scripts: {
-    exclude: true, // This will exclude the option 'scripts' from the list
-  },
-  "Create test file": {
-    args: true, // This will ask the user for any arguments
-    exec: "./scripts/create-testfile.sh", // This will then run ./script/create-testfile.sh followed by any arguments provided.
-  },
-  "db:create:migration": {
-    exclude: true,
-  },
-  "db:migrate:latest": {
-    exclude: true,
-  },
-  db: {
-    options: {
-      // This will mean whenever 'db' is selected from the list nothing will be run but a new list consisting of 'create migration' and 'migrate latest' will show.
-      "create migration": {
-        args: true,
-        exec: "npm run db:create:migration",
-      },
-      "migrate latest": {
-        exec: "npm run db:migrate:latest",
+/** @type { import("scripts-cli").Config } */
+
+export default {
+  exclude: ["db:create:migration", "db:migrate:latest", "scripts"], // This list will exclude scripts with this name from being added at the top level by default. Adding them manually to the options will allow them to still be selected.
+  options: {
+    // These are the options to be presented. For package.json scripts the key needs to be the same as in package.json
+    test: {
+      args: true, // This will ask the user to provide arguments then run 'npm run test' followed by any provided arguments.
+    },
+    "Create test file": {
+      args: true, // This will ask the user for any arguments
+      argsLabel: "File name", // This will be the label used when asking for arguments input.
+      exec: "./scripts/create-testfile.sh", // This will then run ./script/create-testfile.sh followed by any arguments provided.
+    },
+    db: {
+      options: {
+        // This will mean whenever 'db' is selected from the list nothing will be run but a new list consisting of 'create migration' and 'migrate latest' will show.
+        "create migration": {
+          args: true,
+          exec: "npm run db:create:migration",
+        },
+        "db:migrate:latest": {}, // As this key matches a script in package.json selecting this will run 'npm run db:migrate:latest'
       },
     },
   },

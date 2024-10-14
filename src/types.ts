@@ -1,16 +1,14 @@
+export type Config = {
+  exclude?: string[];
+  options: Options;
+};
 export type Options = Record<
   string,
   | {
       args?: boolean;
-      exec?: string;
-      options?: never;
-      exclude?: never;
-    }
-  | { options: Options; args: never; exec: never; exclude?: never }
-  | {
-      exclude: boolean;
-      args?: boolean;
+      argsLabel?: string;
       exec?: string;
       options?: never;
     }
+  | { options: Options; args: never; argsLabel: never; exec: never }
 >;
