@@ -25,6 +25,7 @@ async function run(options: Record<string, string | boolean | string[]> = {}) {
 
   const npmScripts = Object.keys(data.scripts)
     .filter((script) => {
+      if (!config) return true;
       return !config.exclude?.includes(script);
     })
     .reduce((acc: Options, script) => {
@@ -35,7 +36,7 @@ async function run(options: Record<string, string | boolean | string[]> = {}) {
   try {
     const { cmd, args } = await presentOptions({
       ...npmScripts,
-      ...config.options,
+      ...config?.options,
     });
     child_process.spawn(cmd + " " + args, { stdio: "inherit", shell: true });
   } catch (e) {
