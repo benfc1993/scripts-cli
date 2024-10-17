@@ -1,6 +1,6 @@
 {
   "name": "scripts-cli",
-  "version": "2.1.1",
+  "version": "2.1.2",
   "description": "CLI to run package json scripts and any other scripts in an npm project.",
   "main": "./dist/index.js",
   "types": "./dist/types.d.ts",
