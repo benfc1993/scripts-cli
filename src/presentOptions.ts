@@ -22,7 +22,7 @@ export async function presentOptions(options: Options) {
 
   const args = selectedOption.args
     ? await input({
-        message: selectedOption?.argsLabel + ":" ?? "Arguments:",
+        message: (selectedOption?.argsLabel ?? "Arguments") + ":",
       }).catch()
     : "";
 
