@@ -5,3 +5,4 @@ src
 .github
 tsconfig.build.json
 tsconfig.json
+jest.config.ts

@@ -1,13 +1,16 @@
 {
   "name": "scripts-cli",
-  "version": "2.1.0",
+  "version": "2.1.1",
   "description": "CLI to run package json scripts and any other scripts in an npm project.",
   "main": "./dist/index.js",
   "types": "./dist/types.d.ts",
   "bin": {
-    "scripts-cli": "./dist/index.js"
+    "scripts-cli": "dist/index.js"
   },
-  "repository": "git+https://github.com/benfc1993/scripts-cli.git",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/benfc1993/scripts-cli.git"
+  },
   "homepage": "https://github.com/benfc1993/scripts-cli#readme",
   "author": "Ben Feldberg Collins",
   "license": "MIT",
