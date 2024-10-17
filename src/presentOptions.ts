@@ -4,6 +4,7 @@ import FuzzySearch from "fuzzy-search";
 
 export async function presentOptions(options: Options) {
   const choices = Object.keys(options);
+
   if (choices.length === 0) throw new Error("no options");
 
   const selection = await search<keyof typeof options>({
