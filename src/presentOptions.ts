@@ -4,6 +4,8 @@ import FuzzySearch from "fuzzy-search";
 
 export async function presentOptions(options: Options) {
   const choices = Object.keys(options);
+  if (choices.length === 0) throw new Error("no options");
+
   const selection = await search<keyof typeof options>({
     message: "What do you want to do",
     source: async (input) => {
@@ -13,6 +15,8 @@ export async function presentOptions(options: Options) {
       return result;
     },
   });
+
+  if (!selection) throw new Error("no selection made");
 
   const selectedOption = options[selection];
 

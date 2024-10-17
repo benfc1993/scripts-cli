@@ -10,5 +10,5 @@ export type Options = Record<
       exec?: string;
       options?: never;
     }
-  | { options: Options; args: never; argsLabel: never; exec: never }
+  | { options: Options; args?: never; argsLabel?: never; exec?: never }
 >;
