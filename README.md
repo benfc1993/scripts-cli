@@ -74,9 +74,12 @@ For each option entry you can provide the following:
 /** @type { import("scripts-cli").Config } */
 
 export default {
-  exclude: ["db:create:migration", "db:migrate:latest", "scripts"], // This list will exclude scripts with this name from being added at the top level by default. Adding them manually to the options will allow them to still be selected.
+  // This list will exclude scripts with this name from being added at the top level by default.
+  // Adding them manually to the options will allow them to still be selected.
+  exclude: ["db:create:migration", "db:migrate:latest", "scripts"],
+  // These are the options to be presented.
+  // For package.json scripts the key needs to be the same as in package.json
   options: {
-    // These are the options to be presented. For package.json scripts the key needs to be the same as in package.json
     test: {
       args: true, // This will ask the user to provide arguments then run 'npm run test' followed by any provided arguments.
     },
@@ -87,7 +90,8 @@ export default {
     },
     db: {
       options: {
-        // This will mean whenever 'db' is selected from the list nothing will be run but a new list consisting of 'create migration' and 'migrate latest' will show.
+        // This will mean whenever 'db' is selected from the list nothing will be run
+        // but a new list consisting of 'create migration' and 'migrate latest' will show.
         "create migration": {
           args: true,
           exec: "npm run db:create:migration",
