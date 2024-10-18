@@ -31,18 +31,18 @@ In order to change the behaviour of `package.json` scripts and add any other scr
 ```typescript
 type Options =
   | {
-      args?: boolean;
-      argumentsLabel?: string;
-      exec?: string;
+      args?: boolean
+      argumentsLabel?: string
+      exec?: string
     }
   | {
-      options: Options;
-    };
+      options: Options
+    }
 
 type Config = {
-  exclude: string[];
-  options: Options;
-};
+  exclude: string[]
+  options: Options
+}
 ```
 
 For each option entry you can provide the following:
@@ -76,29 +76,30 @@ For each option entry you can provide the following:
 export default {
   // This list will exclude scripts with this name from being added at the top level by default.
   // Adding them manually to the options will allow them to still be selected.
-  exclude: ["db:create:migration", "db:migrate:latest", "scripts"],
+  // excludes can also be globs where a single `*` is treated as a wildcard
+  exclude: ['scripts', 'db:*'],
   // These are the options to be presented.
   // For package.json scripts the key needs to be the same as in package.json
   options: {
     test: {
       args: true, // This will ask the user to provide arguments then run 'npm run test' followed by any provided arguments.
     },
-    "Create test file": {
+    'Create test file': {
       args: true, // This will ask the user for any arguments
-      argsLabel: "File name", // This will be the label used when asking for arguments input.
-      exec: "./scripts/create-testfile.sh", // This will then run ./script/create-testfile.sh followed by any arguments provided.
+      argsLabel: 'File name', // This will be the label used when asking for arguments input.
+      exec: './scripts/create-testfile.sh', // This will then run ./script/create-testfile.sh followed by any arguments provided.
     },
     db: {
       options: {
         // This will mean whenever 'db' is selected from the list nothing will be run
-        // but a new list consisting of 'create migration' and 'migrate latest' will show.
-        "create migration": {
+        // but a new list consisting of 'create migration' and 'db:migrate:latest' will show.
+        'create migration': {
           args: true,
-          exec: "npm run db:create:migration",
+          exec: 'npm run db:create:migration',
         },
-        "db:migrate:latest": {}, // As this key matches a script in package.json selecting this will run 'npm run db:migrate:latest'
+        'db:migrate:latest': {}, // As this key matches a script in package.json selecting this will run 'npm run db:migrate:latest'
       },
     },
   },
-};
+}
 ```

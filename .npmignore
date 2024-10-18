@@ -6,3 +6,4 @@ src
 tsconfig.build.json
 tsconfig.json
 jest.config.ts
+.prettierrc.json
